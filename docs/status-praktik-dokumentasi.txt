@@ -1,0 +1,36 @@
+Dokumentasi Status Praktek
+
+1) Lokasi (bisa diubah di skrip index.html)
+   PRACTICE_LOCATIONS = {
+     A: { name: 'Lokasi A - Klinik Utama', address: 'Jl. Contoh No. 123, Bandung, Jawa Barat 40123' },
+     B: { name: 'Lokasi B - Cabang Utara', address: 'Jl. Alternatif No. 45, Bandung' }
+   }
+
+2) Jadwal (0=Min, 1=Sen, 2=Sel, 3=Rab, 4=Kam, 5=Jum, 6=Sab)
+   PRACTICE_SCHEDULE = {
+     0: { open: false, hours: [], location: null },
+     1: { open: true, hours: ['09:00-17:00'], location: 'A' },
+     2: { open: true, hours: ['09:00-17:00'], location: 'A' },
+     3: { open: true, hours: ['09:00-17:00'], location: 'B' },
+     4: { open: true, hours: ['09:00-17:00'], location: 'A' },
+     5: { open: true, hours: ['09:00-17:00'], location: 'A' },
+     6: { open: true, hours: ['09:00-14:00'], location: 'B' }
+   }
+
+3) Cara edit jadwal/lokasi
+   - Ubah nilai PRACTICE_LOCATIONS untuk mengganti nama/alamat lokasi A atau B.
+   - Ubah PRACTICE_SCHEDULE untuk menyalakan/mematikan hari, jam buka, dan lokasi (gunakan 'A' atau 'B').
+   - Jam ditulis format HH:MM-HH:MM, bisa lebih dari satu rentang per hari (contoh: ['08:00-12:00','13:00-16:00']).
+
+4) Cara kerja
+   - Komponen status di atas hero membaca hari dan jam real-time (Date).
+   - Status "Sedang Praktek" jika jam sekarang berada di salah satu rentang hours pada hari itu.
+   - Jika open: true tapi di luar jam, tampil "Tutup" + info jam hari ini.
+   - Jika open: false, tampil "Libur".
+
+5) Posisi data di kode
+   - Konstanta dan fungsi berada di bagian <script> paling bawah index.html sebelum logika navbar scroll.
+   - Banner status berada di dalam <header>, tepat sebelum konten hero.
+
+6) Mengganti lokasi peta bawah
+   - Edit iframe src dan teks di section "Lokasi & Jadwal Praktik" (id=location).

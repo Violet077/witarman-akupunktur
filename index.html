@@ -1,0 +1,1026 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sinshe Witarman - Akupunktur</title>
+    
+    <!-- Fonts: Plus Jakarta Sans (Modern) & Playfair Display (Professional/Serif) -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    },
+                    colors: {
+                        brand: {
+                            primary: '#3F6253', // Deep Sage Green (Warna Utama)
+                            secondary: '#D4B996', // Sand Gold (Warna Aksen)
+                            dark: '#1F2925', // Hampir Hitam
+                            light: '#F7F6F2', // Warm Paper Background
+                            surface: '#FFFFFF'
+                        }
+                    },
+                    boxShadow: {
+                        'glass': '0 8px 32px 0 rgba(31, 38, 135, 0.07)',
+                        'glow': '0 0 15px rgba(63, 98, 83, 0.2)',
+                    },
+                    animation: {
+                        'fade-in-up': 'fadeInUp 0.8s ease-out',
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        html { scroll-behavior: smooth; }
+        
+        /* Modal Transitions */
+        .modal { opacity: 0; visibility: hidden; transition: all 0.3s ease-in-out; }
+        .modal.open { opacity: 1; visibility: visible; }
+        .modal.open .modal-content { transform: scale(1); opacity: 1; }
+        .modal-content { transform: scale(0.95); opacity: 0; transition: all 0.3s ease-in-out; }
+        
+        /* Custom Scrollbar */
+        .testi-scroll::-webkit-scrollbar { width: 4px; }
+        .testi-scroll::-webkit-scrollbar-thumb { background: #D4B996; border-radius: 4px; }
+        .testi-scroll::-webkit-scrollbar-track { background: transparent; }
+
+        /* FAQ Active State */
+        .faq-item.active { background-color: #F0FDF4; border-color: #3F6253; }
+        .faq-item.active button { color: #3F6253; }
+
+        /* Slider Styles */
+        .slider-container { overflow: hidden; position: relative; }
+        .slides-wrapper { display: flex; transition: transform 0.5s ease-in-out; }
+        .slide-item { min-width: 100%; flex-shrink: 0; }
+        
+        /* Mobile Menu Transition */
+        #mobile-menu { transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out; max-height: 0; opacity: 0; overflow: hidden; }
+        #mobile-menu.open { max-height: 400px; opacity: 1; }
+    </style>
+</head>
+<body class="font-sans text-brand-dark antialiased bg-brand-light">
+
+    <!-- Navbar (Sticky & Blur) -->
+    <nav class="fixed w-full top-0 z-50 transition-all duration-300 bg-brand-light/90 backdrop-blur-md border-b border-brand-primary/5 shadow-sm" id="navbar">
+        <div class="container mx-auto px-6 md:px-12 h-20 flex justify-between items-center relative">
+            <div class="text-lg md:text-xl font-serif font-bold text-brand-primary flex items-center gap-2 z-50">
+                <div class="w-8 h-8 bg-brand-primary text-brand-secondary rounded-full flex items-center justify-center text-xs shadow-md">
+                    <i class="fas fa-leaf"></i>
+                </div>
+                <span>Sinshe Witarman<span class="text-brand-secondary">.</span></span>
+            </div>
+            
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex space-x-8 text-sm font-medium text-brand-dark/80">
+                <a href="#" class="hover:text-brand-primary transition relative group">Profil</a>
+                <a href="#testimonials" class="hover:text-brand-primary transition relative group">Testimoni</a>
+                <a href="#methods" class="hover:text-brand-primary transition relative group">Metode</a>
+                <a href="#conditions" class="hover:text-brand-primary transition relative group">Keluhan</a>
+                <a href="#faq" class="hover:text-brand-primary transition relative group">FAQ</a>
+                <a href="#location" class="hover:text-brand-primary transition relative group">Lokasi</a>
+            </div>
+
+            <!-- CTA Desktop -->
+            <button onclick="toggleModal()" class="hidden md:block bg-brand-primary text-white px-6 py-2.5 rounded-full text-sm font-medium hover:bg-brand-dark hover:shadow-glow transition shadow-lg shadow-brand-primary/20 transform hover:-translate-y-0.5">
+                Buat Janji
+            </button>
+
+            <!-- Mobile Menu Button -->
+            <button id="mobile-menu-btn" onclick="toggleMobileMenu()" class="md:hidden text-brand-primary text-2xl focus:outline-none z-50">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu" class="bg-white border-b border-gray-100 md:hidden absolute w-full top-20 left-0 shadow-lg">
+            <div class="flex flex-col px-6 py-4 space-y-4 text-center">
+                <a href="#" onclick="toggleMobileMenu()" class="text-brand-dark font-medium hover:text-brand-primary">Profil</a>
+                <a href="#testimonials" onclick="toggleMobileMenu()" class="text-brand-dark font-medium hover:text-brand-primary">Testimoni</a>
+                <a href="#methods" onclick="toggleMobileMenu()" class="text-brand-dark font-medium hover:text-brand-primary">Metode</a>
+                <a href="#conditions" onclick="toggleMobileMenu()" class="text-brand-dark font-medium hover:text-brand-primary">Keluhan</a>
+                <a href="#faq" onclick="toggleMobileMenu()" class="text-brand-dark font-medium hover:text-brand-primary">FAQ</a>
+                <a href="#location" onclick="toggleMobileMenu()" class="text-brand-dark font-medium hover:text-brand-primary">Lokasi</a>
+                <button onclick="toggleModal(); toggleMobileMenu()" class="bg-brand-primary text-white px-6 py-3 rounded-full text-sm font-medium w-full shadow-md">
+                    Buat Janji
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION (Profil) -->
+    <header class="relative pt-24 pb-16 lg:pt-32 lg:pb-24 overflow-hidden">
+        <div class="container mx-auto px-6 md:px-12 mb-8">
+            <div class="bg-white border border-gray-100 rounded-2xl shadow-md px-5 py-4 flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+                <div class="flex flex-col gap-2">
+                    <div class="flex items-center gap-3">
+                        <span id="practice-indicator-pill" class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold bg-gray-100 text-gray-600">
+                            <span class="w-2 h-2 rounded-full bg-gray-400"></span>
+                            Memuat status...
+                        </span>
+                        <p id="practice-status-text" class="text-sm font-semibold text-brand-dark">Memuat informasi praktik</p>
+                    </div>
+                    <p id="practice-location-text" class="text-xs text-gray-500">Mohon tunggu</p>
+                    <div id="practice-detail" class="hidden text-xs text-gray-600 bg-brand-light rounded-xl p-3 border border-brand-secondary/20">
+                        <p id="practice-location-detail">Detail lokasi akan tampil di sini.</p>
+                    </div>
+                    <button type="button" onclick="togglePracticeDetail()" class="self-start text-xs font-bold text-brand-primary inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-secondary/20 hover:bg-brand-secondary/30 transition">
+                        <i class="fas fa-map-marker-alt text-[10px]"></i>
+                        Detail lokasi
+                    </button>
+                </div>
+                <div class="text-sm text-gray-600 flex items-center gap-2">
+                    <i class="far fa-clock text-brand-primary"></i>
+                    <span id="practice-today-hours">Memuat jadwal hari ini</span>
+                </div>
+            </div>
+        </div>
+        <div class="container mx-auto px-6 md:px-12 flex flex-col lg:flex-row items-center gap-10 lg:gap-20">
+            
+            <!-- LEFT: Profile & Authority -->
+            <div class="w-full lg:w-7/12 relative z-10 animate-fade-in-up">
+                <div class="flex justify-center md:justify-start">
+                    <div class="inline-flex items-center gap-2 px-4 py-1.5 bg-white border border-brand-secondary/30 text-brand-dark rounded-full text-[10px] md:text-xs font-bold tracking-wider mb-6 shadow-sm">
+                        <span class="relative flex h-2 w-2">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                        </span>
+                        PRAKTISI TERPERCAYA SEJAK 2010
+                    </div>
+                </div>
+                
+                <!-- FLEX CONTAINER: Profile Picture + Name -->
+                <div class="flex flex-col md:flex-row items-center md:items-start gap-6 mb-8 group">
+                    <!-- Profile Picture Circle -->
+                    <div class="relative shrink-0 transition-transform duration-500 group-hover:scale-105">
+                        <div class="w-24 h-24 md:w-32 md:h-32 rounded-full border-[3px] border-white shadow-xl overflow-hidden ring-4 ring-brand-secondary/20">
+                            <img src="assets/img/witarman1.webp" alt="Sinshe Witarman" class="w-full h-full object-cover">
+                        </div>
+                        <div class="absolute bottom-0 right-0 bg-brand-primary text-white w-8 h-8 flex items-center justify-center rounded-full border-2 border-white shadow-md z-10" title="Verified">
+                            <i class="fas fa-check text-xs"></i>
+                        </div>
+                    </div>
+
+                    <!-- Name & Title Block -->
+                    <div class="text-center md:text-left pt-1">
+                        <h1 class="font-serif font-bold text-brand-dark leading-tight mb-2">
+                            <span class="text-2xl md:text-4xl lg:text-5xl inline-block mb-1">
+                                Witarman Tjahjana,
+                            </span>
+                            <span class="text-xs md:text-base font-sans font-semibold text-brand-primary/90 block mt-1 tracking-wide">
+                                A.Md.Akup., S.Tr.Kes., S.E.
+                            </span>
+                        </h1>
+                        
+                        <p class="text-gray-500 font-medium text-sm md:text-lg tracking-wide border-b-2 border-brand-secondary/30 inline-block pb-1">
+                            Akupunkturis & Praktisi Kesehatan Holistik
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- ORGANIZATION BADGES -->
+                <div class="bg-white border border-gray-100 p-5 rounded-2xl mb-8 space-y-3 shadow-sm hover:shadow-md transition duration-300">
+                    <div class="flex items-start gap-3">
+                        <div class="mt-1 w-5 h-5 rounded-full bg-brand-light flex items-center justify-center text-brand-primary text-xs shrink-0">
+                            <i class="fas fa-gavel"></i>
+                        </div>
+                        <span class="text-xs md:text-sm text-gray-700 leading-relaxed">Ketua <strong>PKNI Jawa Barat</strong></span>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <div class="mt-1 w-5 h-5 rounded-full bg-brand-light flex items-center justify-center text-brand-primary text-xs shrink-0">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <span class="text-xs md:text-sm text-gray-700 leading-relaxed">Dewan Pembina <strong>Yayasan Ikhtiar Sinshe & Akupunkturis</strong></span>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <div class="mt-1 w-5 h-5 rounded-full bg-brand-light flex items-center justify-center text-brand-primary text-xs shrink-0">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <span class="text-xs md:text-sm text-gray-700 leading-relaxed">Bidang Pendidikan <strong>HAKTI DPC Bandung Raya</strong></span>
+                    </div>
+                </div>
+
+                <p class="text-gray-500 text-sm md:text-base mb-8 leading-relaxed max-w-lg text-center md:text-left mx-auto md:mx-0">
+                    Mengembalikan keseimbangan alami tubuh Anda dengan perpaduan ilmu <strong>TCM (Traditional Chinese Medicine)</strong> klasik dan standar medis modern. Tanpa obat kimia, fokus pada akar masalah.
+                </p>
+
+                <div class="flex flex-wrap gap-4 items-center justify-center md:justify-start">
+                    <a href="https://wa.me/" class="bg-brand-primary text-white px-8 py-3.5 rounded-xl font-semibold shadow-xl shadow-brand-primary/20 hover:-translate-y-1 transition flex items-center gap-3 text-sm md:text-base">
+                        <i class="fab fa-whatsapp text-xl"></i>
+                        Konsultasi Personal
+                    </a>
+                </div>
+            </div>
+
+            <!-- RIGHT: Experience & Mentorship Card -->
+            <div class="w-full lg:w-5/12 relative animate-fade-in-up" style="animation-delay: 0.2s;">
+                <div class="absolute top-4 -right-4 w-full h-full bg-brand-secondary/10 rounded-3xl -z-10 transform rotate-3"></div>
+                
+                <div class="bg-white rounded-2xl shadow-2xl border border-gray-50 overflow-hidden relative group hover:-translate-y-1 transition duration-500">
+                    <div class="relative h-60 md:h-72 overflow-hidden">
+                         <img src="assets/img/prof.webp" alt="Mentorship Session" class="w-full h-full object-cover transition duration-700 group-hover:scale-105">
+                         <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent opacity-90"></div>
+                         <div class="absolute bottom-6 left-6 right-6 text-white">
+                             <div class="inline-flex items-center gap-2 px-3 py-1 bg-brand-secondary/90 text-brand-dark text-[10px] font-bold uppercase tracking-wider rounded-md mb-2 shadow-sm">
+                                 <i class="fas fa-history"></i> Warisan Ilmu
+                             </div>
+                             <h3 class="font-serif font-bold text-xl md:text-2xl leading-snug">Berpengalaman Praktik Bersama Prof. Sim Kie Jie</h3>
+                         </div>
+                    </div>
+                    <div class="p-6 bg-white relative">
+                        <div class="flex items-start gap-4">
+                            <div class="w-10 h-10 rounded-full bg-brand-light flex items-center justify-center text-brand-primary shrink-0">
+                                <i class="fas fa-quote-left"></i>
+                            </div>
+                            <div>
+                                <p class="text-gray-600 text-sm leading-relaxed italic">
+                                    "Sebuah kehormatan dapat menimba ilmu dan mendampingi Prof. Sim Kie Jie secara langsung. Pengalaman ini membentuk fondasi diagnosa akupunktur saya yang presisi dan holistik."
+                                </p>
+                                <div class="mt-4 flex items-center gap-3 border-t border-gray-100 pt-3">
+                                    <div class="w-8 h-8 rounded-full overflow-hidden border border-gray-200">
+                                        <img src="assets/img/witarman1.webp" class="w-full h-full object-cover">
+                                    </div>
+                                    <span class="text-xs font-bold text-brand-dark">Witarman Tjahjana</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- NEW SECTION: TESTIMONIALS SLIDESHOW (Optimized for Mobile & Desktop) -->
+    <section id="testimonials" class="py-16 md:py-24 bg-white relative">
+        <div class="container mx-auto px-6 md:px-12">
+            <!-- Header (Responsive) -->
+            <div class="flex flex-col md:flex-row justify-between items-center md:items-end mb-10 md:mb-12">
+                <div class="max-w-2xl text-center md:text-left mb-6 md:mb-0">
+                    <span class="text-brand-primary font-bold tracking-[0.2em] text-xs uppercase mb-3 block">APA KATA MEREKA</span>
+                    <h2 class="text-2xl md:text-4xl font-serif font-bold text-brand-dark">Cerita Kesembuhan</h2>
+                    <p class="text-gray-500 mt-3 text-sm md:text-base">Kisah nyata dari pasien yang telah merasakan manfaat terapi akupunktur holistik.</p>
+                </div>
+                
+                <!-- Desktop Nav (Hidden on Mobile) -->
+                <div class="hidden md:flex gap-3">
+                    <button onclick="prevTestimoni()" class="w-12 h-12 rounded-full border border-gray-200 flex items-center justify-center hover:bg-brand-primary hover:text-white transition group">
+                        <i class="fas fa-arrow-left text-gray-400 group-hover:text-white"></i>
+                    </button>
+                    <button onclick="nextTestimoni()" class="w-12 h-12 rounded-full bg-brand-primary text-white flex items-center justify-center hover:bg-brand-dark transition shadow-lg hover:shadow-xl hover:-translate-y-1">
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Testimonial Card (Centered & Adaptive Height) -->
+            <div class="relative max-w-4xl mx-auto">
+                <div class="slider-container overflow-hidden rounded-3xl bg-brand-light shadow-sm">
+                    <div class="slides-wrapper flex transition-transform duration-500 ease-out" id="testi-wrapper">
+                        
+                        <!-- Slide 1 -->
+                        <div class="slide-item w-full flex-shrink-0 px-6 py-10 md:px-20 md:py-16 flex flex-col items-center text-center">
+                            <div class="text-brand-secondary text-4xl mb-6 opacity-40"><i class="fas fa-quote-left"></i></div>
+                            <p class="text-lg md:text-2xl font-serif italic text-brand-dark mb-8 leading-relaxed max-w-3xl">
+                                "Saya menderita saraf kejepit (HNP) selama 2 tahun. Setelah 6 sesi terapi dengan Sinshe Witarman, nyeri punggung berkurang drastis dan saya bisa berjalan normal kembali."
+                            </p>
+                            <div class="flex items-center gap-4 bg-white px-6 py-3 rounded-full shadow-sm">
+                                <div class="w-10 h-10 rounded-full bg-brand-primary text-white flex items-center justify-center font-bold text-sm">BP</div>
+                                <div class="text-left">
+                                    <h4 class="font-bold text-brand-dark text-sm">Bapak Pranoto</h4>
+                                    <p class="text-[10px] text-brand-gray uppercase tracking-wider">Pasien HNP Lumbal</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Slide 2 -->
+                        <div class="slide-item w-full flex-shrink-0 px-6 py-10 md:px-20 md:py-16 flex flex-col items-center text-center">
+                            <div class="text-brand-secondary text-4xl mb-6 opacity-40"><i class="fas fa-quote-left"></i></div>
+                            <p class="text-lg md:text-2xl font-serif italic text-brand-dark mb-8 leading-relaxed max-w-3xl">
+                                "Migrain yang saya alami bertahun-tahun sembuh tanpa obat kimia. Sinshe sangat teliti dalam mendiagnosa akar masalahnya, bukan cuma menghilangkan sakit kepala sesaat."
+                            </p>
+                            <div class="flex items-center gap-4 bg-white px-6 py-3 rounded-full shadow-sm">
+                                <div class="w-10 h-10 rounded-full bg-brand-primary text-white flex items-center justify-center font-bold text-sm">SR</div>
+                                <div class="text-left">
+                                    <h4 class="font-bold text-brand-dark text-sm">Sari Rahmawati</h4>
+                                    <p class="text-[10px] text-brand-gray uppercase tracking-wider">Pasien Migrain Kronis</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Slide 3 -->
+                        <div class="slide-item w-full flex-shrink-0 px-6 py-10 md:px-20 md:py-16 flex flex-col items-center text-center">
+                            <div class="text-brand-secondary text-4xl mb-6 opacity-40"><i class="fas fa-quote-left"></i></div>
+                            <p class="text-lg md:text-2xl font-serif italic text-brand-dark mb-8 leading-relaxed max-w-3xl">
+                                "Program hamil yang dijalankan Sinshe Witarman sangat membantu kami. Pendekatan holistiknya membuat tubuh terasa lebih siap dan sehat. Alhamdulillah berhasil."
+                            </p>
+                            <div class="flex items-center gap-4 bg-white px-6 py-3 rounded-full shadow-sm">
+                                <div class="w-10 h-10 rounded-full bg-brand-primary text-white flex items-center justify-center font-bold text-sm">AD</div>
+                                <div class="text-left">
+                                    <h4 class="font-bold text-brand-dark text-sm">Anisa & Dimas</h4>
+                                    <p class="text-[10px] text-brand-gray uppercase tracking-wider">Program Fertilitas</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Mobile Nav (Shown below card on mobile for better UX) -->
+                <div class="flex md:hidden justify-center gap-4 mt-6">
+                    <button onclick="prevTestimoni()" class="w-12 h-12 rounded-full bg-white border border-gray-100 flex items-center justify-center shadow-md text-brand-dark active:scale-95 transition">
+                        <i class="fas fa-arrow-left"></i>
+                    </button>
+                    <button onclick="nextTestimoni()" class="w-12 h-12 rounded-full bg-brand-primary text-white flex items-center justify-center shadow-lg active:scale-95 transition">
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Submit Testimonial Button -->
+            <div class="mt-12 text-center">
+                <p class="text-gray-500 mb-4 text-sm">Punya pengalaman berkesan selama terapi?</p>
+                <button onclick="openReviewModal()" class="inline-flex items-center gap-2 bg-transparent border border-brand-primary text-brand-primary hover:bg-brand-primary hover:text-white px-6 py-3 rounded-full transition shadow-sm text-sm font-bold">
+                    <i class="fas fa-pen"></i> Tulis Testimoni Pribadi
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEW SECTION: METHODS SLIDESHOW -->
+    <section id="methods" class="py-16 md:py-24 bg-brand-light relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-1/3 h-full bg-white/50 -skew-x-12 transform translate-x-20"></div>
+        
+        <div class="container mx-auto px-6 md:px-12 relative z-10">
+            <div class="flex flex-col md:flex-row gap-12 items-center">
+                
+                <!-- Text Content -->
+                <div class="w-full md:w-1/3 text-center md:text-left">
+                    <span class="text-brand-primary font-bold tracking-[0.2em] text-xs uppercase mb-3 block">PROSES TERAPI</span>
+                    <h2 class="text-3xl md:text-4xl font-serif font-bold text-brand-dark mb-6">Metode Pengobatan</h2>
+                    <p class="text-gray-600 leading-relaxed mb-8 text-sm md:text-base">
+                        Kami menerapkan standar sterilitas tinggi dan teknik penusukan yang presisi. Setiap langkah terapi dirancang untuk kenyamanan dan efektivitas maksimal.
+                    </p>
+                    
+                    <!-- Custom Navigation for Methods -->
+                    <div class="flex flex-col gap-2">
+                        <button onclick="goToMethod(0)" id="btn-method-0" class="method-nav-btn text-left px-6 py-4 rounded-xl bg-white shadow-sm border-l-4 border-brand-primary transition-all">
+                            <h4 class="font-bold text-brand-dark text-sm md:text-base">1. Diagnosa Holistik</h4>
+                            <p class="text-xs text-gray-500 mt-1">Pemeriksaan lidah & nadi (Pulse Diagnosis)</p>
+                        </button>
+                        <button onclick="goToMethod(1)" id="btn-method-1" class="method-nav-btn text-left px-6 py-4 rounded-xl bg-transparent hover:bg-white/50 border-l-4 border-transparent hover:border-brand-secondary transition-all opacity-60 hover:opacity-100">
+                            <h4 class="font-bold text-brand-dark text-sm md:text-base">2. Penusukan Jarum</h4>
+                            <p class="text-xs text-gray-500 mt-1">Teknik jarum halus Jepang (Painless)</p>
+                        </button>
+                        <button onclick="goToMethod(2)" id="btn-method-2" class="method-nav-btn text-left px-6 py-4 rounded-xl bg-transparent hover:bg-white/50 border-l-4 border-transparent hover:border-brand-secondary transition-all opacity-60 hover:opacity-100">
+                            <h4 class="font-bold text-brand-dark text-sm md:text-base">3. Terapi Pendukung</h4>
+                            <p class="text-xs text-gray-500 mt-1">Bekam, Moksa, atau Elektro-stimulasi</p>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Slideshow Display -->
+                <div class="w-full md:w-2/3">
+                    <div class="slider-container rounded-3xl shadow-2xl overflow-hidden aspect-video relative group">
+                        <div class="slides-wrapper h-full" id="method-wrapper">
+                            <!-- Slide 1 -->
+                            <div class="slide-item h-full relative">
+                                <img src="assets/img/diagnosis1.webp" class="w-full h-full object-cover">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+                                <div class="absolute bottom-6 left-6 md:bottom-8 md:left-8 text-white">
+                                    <span class="bg-brand-secondary text-brand-dark text-xs font-bold px-2 py-1 rounded mb-2 inline-block">LANGKAH 1</span>
+                                    <h3 class="text-xl md:text-2xl font-serif font-bold">Diagnosa Mendalam</h3>
+                                    <p class="text-white/80 mt-2 text-xs md:text-sm">Mendeteksi ketidakseimbangan organ internal sebelum gejala muncul.</p>
+                                </div>
+                            </div>
+                            <!-- Slide 2 -->
+                            <div class="slide-item h-full relative">
+                                <img src="assets/img/tusukjarum.webp" class="w-full h-full object-cover">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+                                <div class="absolute bottom-6 left-6 md:bottom-8 md:left-8 text-white">
+                                    <span class="bg-brand-primary text-white text-xs font-bold px-2 py-1 rounded mb-2 inline-block">LANGKAH 2</span>
+                                    <h3 class="text-xl md:text-2xl font-serif font-bold">Akupunktur Steril</h3>
+                                    <p class="text-white/80 mt-2 text-xs md:text-sm">Menggunakan jarum disposable steril sekali pakai untuk keamanan pasien.</p>
+                                </div>
+                            </div>
+                            <!-- Slide 3 -->
+                            <div class="slide-item h-full relative">
+                                <img src="assets/img/stimulasi.webp" class="w-full h-full object-cover">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+                                <div class="absolute bottom-6 left-6 md:bottom-8 md:left-8 text-white">
+                                    <span class="bg-brand-secondary text-brand-dark text-xs font-bold px-2 py-1 rounded mb-2 inline-block">LANGKAH 3</span>
+                                    <h3 class="text-xl md:text-2xl font-serif font-bold">Terapi Kombinasi</h3>
+                                    <p class="text-white/80 mt-2 text-xs md:text-sm">Bekam atau Moksa untuk memaksimalkan aliran Qi dan darah.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- CONDITIONS GRID -->
+    <section id="conditions" class="py-16 md:py-24 bg-white relative">
+        <div class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent"></div>
+
+        <div class="container mx-auto px-6 md:px-12">
+            <div class="text-center mb-12 md:mb-16">
+                <span class="text-brand-primary font-bold tracking-[0.2em] text-xs uppercase mb-3 block">SPESIALISASI KLINIS</span>
+                <h2 class="text-2xl md:text-4xl font-serif font-bold text-brand-dark">Keluhan Yang Kami Tangani</h2>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
+                <!-- Card 1 -->
+                <div class="group p-4 md:p-6 rounded-2xl bg-gray-50 border border-gray-100 hover:border-brand-primary/30 hover:shadow-xl hover:-translate-y-1 transition duration-300 cursor-pointer">
+                    <div class="w-10 h-10 md:w-12 md:h-12 bg-white rounded-full flex items-center justify-center text-xl md:text-2xl mb-4 text-gray-400 group-hover:text-brand-secondary group-hover:bg-brand-primary transition duration-300 shadow-sm">
+                        <i class="fas fa-bone"></i>
+                    </div>
+                    <h3 class="font-bold text-brand-dark text-base md:text-lg mb-1 group-hover:text-brand-primary transition">Nyeri Punggung</h3>
+                    <p class="text-xs text-gray-500 mb-3">HNP (Saraf Kejepit) & Ischialgia</p>
+                </div>
+                <!-- Card 2 -->
+                <div class="group p-4 md:p-6 rounded-2xl bg-gray-50 border border-gray-100 hover:border-brand-primary/30 hover:shadow-xl hover:-translate-y-1 transition duration-300 cursor-pointer">
+                    <div class="w-10 h-10 md:w-12 md:h-12 bg-white rounded-full flex items-center justify-center text-xl md:text-2xl mb-4 text-gray-400 group-hover:text-brand-secondary group-hover:bg-brand-primary transition duration-300 shadow-sm">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3 class="font-bold text-brand-dark text-base md:text-lg mb-1 group-hover:text-brand-primary transition">Pasca Stroke</h3>
+                    <p class="text-xs text-gray-500 mb-3">Pemulihan Fungsi Motorik</p>
+                </div>
+                <!-- Card 3 -->
+                <div class="group p-4 md:p-6 rounded-2xl bg-gray-50 border border-gray-100 hover:border-brand-primary/30 hover:shadow-xl hover:-translate-y-1 transition duration-300 cursor-pointer">
+                    <div class="w-10 h-10 md:w-12 md:h-12 bg-white rounded-full flex items-center justify-center text-xl md:text-2xl mb-4 text-gray-400 group-hover:text-brand-secondary group-hover:bg-brand-primary transition duration-300 shadow-sm">
+                        <i class="fas fa-baby"></i>
+                    </div>
+                    <h3 class="font-bold text-brand-dark text-base md:text-lg mb-1 group-hover:text-brand-primary transition">Program Hamil</h3>
+                    <p class="text-xs text-gray-500 mb-3">Meningkatkan Kesuburan Alami</p>
+                </div>
+                <!-- Card 4 -->
+                <div class="group p-4 md:p-6 rounded-2xl bg-gray-50 border border-gray-100 hover:border-brand-primary/30 hover:shadow-xl hover:-translate-y-1 transition duration-300 cursor-pointer">
+                    <div class="w-10 h-10 md:w-12 md:h-12 bg-white rounded-full flex items-center justify-center text-xl md:text-2xl mb-4 text-gray-400 group-hover:text-brand-secondary group-hover:bg-brand-primary transition duration-300 shadow-sm">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3 class="font-bold text-brand-dark text-base md:text-lg mb-1 group-hover:text-brand-primary transition">Migrain</h3>
+                    <p class="text-xs text-gray-500 mb-3">Vertigo & Sakit Kepala Kronis</p>
+                </div>
+                <!-- Card 5 -->
+                 <div class="group p-4 md:p-6 rounded-2xl bg-gray-50 border border-gray-100 hover:border-brand-primary/30 hover:shadow-xl hover:-translate-y-1 transition duration-300 cursor-pointer">
+                    <div class="w-10 h-10 md:w-12 md:h-12 bg-white rounded-full flex items-center justify-center text-xl md:text-2xl mb-4 text-gray-400 group-hover:text-brand-secondary group-hover:bg-brand-primary transition duration-300 shadow-sm">
+                        <i class="fas fa-utensils"></i>
+                    </div>
+                    <h3 class="font-bold text-brand-dark text-base md:text-lg mb-1 group-hover:text-brand-primary transition">Pencernaan</h3>
+                    <p class="text-xs text-gray-500 mb-3">GERD, Asam Lambung & Maag</p>
+                </div>
+                 <!-- Card 6 -->
+                 <div class="group p-4 md:p-6 rounded-2xl bg-gray-50 border border-gray-100 hover:border-brand-primary/30 hover:shadow-xl hover:-translate-y-1 transition duration-300 cursor-pointer">
+                    <div class="w-10 h-10 md:w-12 md:h-12 bg-white rounded-full flex items-center justify-center text-xl md:text-2xl mb-4 text-gray-400 group-hover:text-brand-secondary group-hover:bg-brand-primary transition duration-300 shadow-sm">
+                        <i class="fas fa-moon"></i>
+                    </div>
+                    <h3 class="font-bold text-brand-dark text-base md:text-lg mb-1 group-hover:text-brand-primary transition">Insomnia</h3>
+                    <p class="text-xs text-gray-500 mb-3">Sulit Tidur & Kecemasan</p>
+                </div>
+                <!-- Card 7 -->
+                 <div class="group p-4 md:p-6 rounded-2xl bg-gray-50 border border-gray-100 hover:border-brand-primary/30 hover:shadow-xl hover:-translate-y-1 transition duration-300 cursor-pointer">
+                    <div class="w-10 h-10 md:w-12 md:h-12 bg-white rounded-full flex items-center justify-center text-xl md:text-2xl mb-4 text-gray-400 group-hover:text-brand-secondary group-hover:bg-brand-primary transition duration-300 shadow-sm">
+                        <i class="fas fa-sad-tear"></i>
+                    </div>
+                    <h3 class="font-bold text-brand-dark text-base md:text-lg mb-1 group-hover:text-brand-primary transition">Bell's Palsy</h3>
+                    <p class="text-xs text-gray-500 mb-3">Kelumpuhan Wajah Sesaat</p>
+                </div>
+                <!-- Card 8 -->
+                 <div class="group p-4 md:p-6 rounded-2xl bg-gray-50 border border-gray-100 hover:border-brand-primary/30 hover:shadow-xl hover:-translate-y-1 transition duration-300 cursor-pointer">
+                    <div class="w-10 h-10 md:w-12 md:h-12 bg-white rounded-full flex items-center justify-center text-xl md:text-2xl mb-4 text-gray-400 group-hover:text-brand-secondary group-hover:bg-brand-primary transition duration-300 shadow-sm">
+                        <i class="fas fa-hand-dots"></i>
+                    </div>
+                    <h3 class="font-bold text-brand-dark text-base md:text-lg mb-1 group-hover:text-brand-primary transition">Alergi Kulit</h3>
+                    <p class="text-xs text-gray-500 mb-3">Eksim, Gatal & Psoriasis</p>
+                </div>
+            </div>
+            
+             <div class="mt-12 text-center">
+                 <p class="text-sm text-gray-500 mb-4">Punya keluhan lain?</p>
+                 <a href="https://wa.me/" class="inline-block border border-brand-primary text-brand-primary font-bold px-8 py-3 rounded-full hover:bg-brand-primary hover:text-white transition duration-300 text-sm md:text-base">
+                     Tanyakan Langsung ke Sinshe
+                 </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ SECTION (Styled) -->
+    <section id="faq" class="py-16 md:py-24 bg-brand-light relative overflow-hidden">
+        <div class="absolute -right-20 top-20 w-64 h-64 bg-brand-secondary/10 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="container mx-auto px-6 md:px-12 max-w-4xl relative z-10">
+            <div class="text-center mb-12">
+                <span class="text-brand-primary font-bold tracking-[0.2em] text-xs uppercase mb-3 block">INFORMASI PASIEN</span>
+                <h2 class="text-2xl md:text-3xl font-serif font-bold text-brand-dark">Pertanyaan Umum</h2>
+            </div>
+
+            <div class="space-y-4">
+                <!-- FAQ 1 -->
+                <div class="faq-item bg-white rounded-xl shadow-sm overflow-hidden border border-transparent transition-all duration-300">
+                    <button class="w-full px-6 py-5 text-left flex justify-between items-center font-bold text-brand-dark focus:outline-none" onclick="toggleFaq(this)">
+                        <span class="text-base md:text-lg">Apakah akupunktur itu sakit?</span>
+                        <div class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center transition-transform duration-300 transform">
+                            <i class="fas fa-chevron-down text-xs text-gray-500"></i>
+                        </div>
+                    </button>
+                    <div class="px-6 pb-6 text-gray-600 text-sm hidden leading-relaxed">
+                        Sangat minimal atau bahkan tidak terasa. Jarum yang digunakan sangat halus (seperti helai rambut). Kebanyakan pasien hanya merasakan sensasi seperti digigit semut kecil saat jarum masuk, lalu diikuti rasa hangat atau berat yang nyaman (sensasi "De Qi").
+                    </div>
+                </div>
+                 <!-- FAQ 2 -->
+                 <div class="faq-item bg-white rounded-xl shadow-sm overflow-hidden border border-transparent transition-all duration-300">
+                    <button class="w-full px-6 py-5 text-left flex justify-between items-center font-bold text-brand-dark focus:outline-none" onclick="toggleFaq(this)">
+                        <span class="text-base md:text-lg">Berapa kali terapi sampai sembuh?</span>
+                        <div class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center transition-transform duration-300 transform">
+                            <i class="fas fa-chevron-down text-xs text-gray-500"></i>
+                        </div>
+                    </button>
+                    <div class="px-6 pb-6 text-gray-600 text-sm hidden leading-relaxed">
+                        Setiap tubuh berbeda. Untuk keluhan akut (baru), biasanya terlihat perbaikan dalam 3-5 kali sesi. Untuk keluhan kronis (menahun), kami menyarankan paket 10 sesi untuk hasil yang stabil. Sinshe akan mengevaluasi progres setiap pertemuan.
+                    </div>
+                </div>
+                 <!-- FAQ 3 -->
+                 <div class="faq-item bg-white rounded-xl shadow-sm overflow-hidden border border-transparent transition-all duration-300">
+                    <button class="w-full px-6 py-5 text-left flex justify-between items-center font-bold text-brand-dark focus:outline-none" onclick="toggleFaq(this)">
+                        <span class="text-base md:text-lg">Apakah jarumnya steril?</span>
+                        <div class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center transition-transform duration-300 transform">
+                            <i class="fas fa-chevron-down text-xs text-gray-500"></i>
+                        </div>
+                    </button>
+                    <div class="px-6 pb-6 text-gray-600 text-sm hidden leading-relaxed">
+                        <strong>100% Steril dan Aman.</strong> Kami hanya menggunakan jarum sekali pakai (disposable needle) standar medis. Jarum dibuka dari kemasan segel di hadapan pasien dan langsung dibuang ke tempat limbah medis khusus setelah selesai terapi.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- LOCATION & SCHEDULE SECTION -->
+    <section id="location" class="py-16 md:py-24 bg-brand-light relative">
+        <div class="container mx-auto px-6 md:px-12">
+            <div class="text-center mb-12">
+                <span class="text-brand-primary font-bold tracking-[0.2em] text-xs uppercase mb-3 block">LOKASI & JADWAL</span>
+                <h2 class="text-2xl md:text-4xl font-serif font-bold text-brand-dark">Lokasi & Jadwal Praktik</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
+                <!-- Address & Schedule Card -->
+                <div class="bg-white rounded-2xl shadow-lg border border-gray-100 p-6 md:p-8 flex flex-col gap-6">
+                    <div>
+                        <h3 class="text-lg md:text-xl font-serif font-bold text-brand-dark mb-2">Yayasan Ikhtiar Sinshe & Akupunktur</h3>
+                        <p class="text-sm md:text-base text-gray-600 leading-relaxed">
+                            Jl. Peta No.169, Suka Asih, Kec. Bojongloa Kaler, Kota Bandung, Jawa Barat 40231
+                        </p>
+                        <p class="text-xs md:text-sm text-gray-500 mt-1"></p>
+                    </div>
+
+                    <div>
+                        <h4 class="text-sm font-bold text-brand-primary uppercase tracking-wide mb-3">Jam Praktik</h4>
+                        <ul class="space-y-2 text-sm md:text-base text-gray-700">
+                            <li class="flex justify-between">
+                                <span>Rabu</span>
+                                <span class="font-semibold text-brand-dark">14.30 - 19.00</span>
+                            </li>
+                            <li class="flex justify-between">
+                                <span>Sabtu</span>
+                                <span class="font-semibold text-brand-dark">14.30 - 19.00</span>
+                            </li>
+                            <li class="flex justify-between">
+                                <span>Hari Lain</span>
+                                <span class="font-semibold text-brand-dark">Pusat Akupunktur Darma Bakti</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <a href="https://www.google.com/maps" target="_blank" class="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold text-white bg-brand-primary hover:bg-brand-dark transition shadow-md">
+                            <i class="fas fa-location-arrow text-xs"></i>
+                            Buka di Google Maps
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Map Embed -->
+                <div class="rounded-2xl overflow-hidden shadow-lg border border-gray-100 h-72 md:h-full">
+                    <iframe
+                        class="w-full h-full"
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31686.68094350629!2d107.6042627!3d-6.9174639!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e68e64f13f635b1%3A0x301e8f1fc28b8b0!2sBandung!5e0!3m2!1sid!2sid!4v1700000000001"
+                        style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-brand-dark text-white pt-20 pb-10 border-t border-white/10 relative">
+        <div class="container mx-auto px-6 md:px-12 text-center">
+            
+            <!-- Logo Block -->
+            <div class="mb-8 flex flex-col items-center">
+                <div class="w-12 h-12 bg-brand-primary text-brand-secondary rounded-full flex items-center justify-center text-xl mb-4 shadow-glow">
+                    <i class="fas fa-leaf"></i>
+                </div>
+                <h3 class="text-2xl font-serif font-bold tracking-wide">Sinshe Witarman Tjahjana</h3>
+                <p class="text-white/50 mt-2 text-sm max-w-md">Menghadirkan solusi kesehatan holistik yang aman, nyaman, dan terpercaya untuk keluarga Anda.</p>
+            </div>
+
+            <!-- Quick Links Icons -->
+            <div class="flex justify-center gap-6 mb-12">
+                <a href="#" class="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-brand-primary hover:border-brand-primary hover:-translate-y-1 transition duration-300 group">
+                    <i class="fab fa-instagram text-lg group-hover:text-white"></i>
+                </a>
+                <a href="#" class="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-brand-primary hover:border-brand-primary hover:-translate-y-1 transition duration-300 group">
+                    <i class="fab fa-whatsapp text-lg group-hover:text-white"></i>
+                </a>
+                <a href="#" class="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-brand-primary hover:border-brand-primary hover:-translate-y-1 transition duration-300 group">
+                    <i class="fas fa-map-marker-alt text-lg group-hover:text-white"></i>
+                </a>
+            </div>
+
+            <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-white/30">
+                <p>&copy; 2023 Sinshe Witarman Tjahjana. Hak Cipta Dilindungi.</p>
+                <div class="mt-4 md:mt-0 space-x-4">
+                    <a href="#" class="hover:text-brand-secondary transition">Privasi</a>
+                    <a href="#" class="hover:text-brand-secondary transition">Syarat & Ketentuan</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- FLOATING WHATSAPP BUTTON -->
+    <a href="https://wa.me/" class="fixed bottom-6 right-6 z-40 bg-[#25D366] text-white w-14 h-14 rounded-full shadow-2xl flex items-center justify-center text-3xl hover:bg-[#20bd5a] hover:scale-110 transition duration-300 group">
+        <i class="fab fa-whatsapp"></i>
+        <span class="absolute right-16 bg-white text-gray-800 text-xs font-bold px-3 py-1.5 rounded-lg shadow-lg opacity-0 group-hover:opacity-100 transition duration-300 whitespace-nowrap">
+            Chat Sinshe
+        </span>
+    </a>
+
+    <!-- MODAL: BOOKING APPOINTMENT -->
+    <div id="appointmentModal" class="modal fixed inset-0 z-[60] flex items-center justify-center px-4">
+        <!-- Backdrop -->
+        <div class="absolute inset-0 bg-brand-dark/80 backdrop-blur-sm" onclick="toggleModal()"></div>
+        
+        <!-- Modal Content -->
+        <div class="modal-content bg-white w-full max-w-md rounded-2xl shadow-2xl relative z-10 overflow-hidden">
+            <div class="bg-brand-primary p-6 text-white flex justify-between items-center relative overflow-hidden">
+                <div class="absolute -right-4 -top-4 w-20 h-20 bg-white/10 rounded-full blur-xl"></div>
+                <h3 class="font-serif font-bold text-xl relative z-10">Buat Janji</h3>
+                <button onclick="toggleModal()" class="hover:text-brand-secondary transition relative z-10"><i class="fas fa-times text-xl"></i></button>
+            </div>
+            
+            <form class="p-6 space-y-4" onsubmit="submitAppointment(event)">
+                <div>
+                    <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Nama Lengkap</label>
+                    <input name="nama" type="text" required class="w-full bg-gray-50 border border-gray-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-brand-primary focus:bg-white transition" placeholder="Contoh: Budi Santoso">
+                </div>
+                
+                <div>
+                    <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Keluhan</label>
+                    <input name="keluhan" type="text" required class="w-full bg-gray-50 border border-gray-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-brand-primary focus:bg-white transition" placeholder="Contoh: Nyeri punggung / Migrain">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Nomor WhatsApp</label>
+                    <input name="whatsapp" type="tel" required class="w-full bg-gray-50 border border-gray-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-brand-primary focus:bg-white transition" placeholder="Contoh: 62812xxxxxxx">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Pilih Hari/Jam</label>
+                    <input name="jadwal" type="datetime-local" required class="w-full bg-gray-50 border border-gray-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-brand-primary focus:bg-white transition">
+                </div>
+
+                <button type="submit" class="w-full bg-brand-primary text-white font-bold py-3.5 rounded-xl shadow-lg hover:bg-brand-dark transition mt-2 hover:-translate-y-1 flex items-center justify-center gap-2">
+                    <i class="fab fa-whatsapp text-lg"></i>
+                    Kirim via WhatsApp
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL: SUBMIT TESTIMONIAL -->
+    <div id="reviewModal" class="modal fixed inset-0 z-[60] flex items-center justify-center px-4">
+        <!-- Backdrop -->
+        <div class="absolute inset-0 bg-brand-dark/80 backdrop-blur-sm" onclick="closeReviewModal()"></div>
+        
+        <!-- Modal Content -->
+        <div class="modal-content bg-white w-full max-w-md rounded-2xl shadow-2xl relative z-10 overflow-hidden">
+            <div class="bg-brand-primary p-6 text-white flex justify-between items-center relative overflow-hidden">
+                <!-- Decor -->
+                <div class="absolute -right-4 -top-4 w-20 h-20 bg-white/10 rounded-full blur-xl"></div>
+                
+                <h3 class="font-serif font-bold text-xl relative z-10">Tulis Testimoni</h3>
+                <button onclick="closeReviewModal()" class="hover:text-brand-secondary transition relative z-10"><i class="fas fa-times text-xl"></i></button>
+            </div>
+            
+            <form class="p-6 space-y-4" onsubmit="submitReview(event)">
+                <div>
+                    <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Nama Lengkap</label>
+                    <input type="text" required class="w-full bg-gray-50 border border-gray-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-brand-primary focus:bg-white transition" placeholder="Contoh: Budi Santoso">
+                </div>
+                
+                <div>
+                    <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Keluhan Yang Ditangani</label>
+                    <input type="text" required class="w-full bg-gray-50 border border-gray-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-brand-primary focus:bg-white transition" placeholder="Contoh: Saraf Kejepit / Migrain">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Rating Pengalaman</label>
+                    <div class="flex gap-2 text-gray-300 text-2xl cursor-pointer">
+                        <i class="fas fa-star hover:text-yellow-400 transition" onclick="setRating(1, this)"></i>
+                        <i class="fas fa-star hover:text-yellow-400 transition" onclick="setRating(2, this)"></i>
+                        <i class="fas fa-star hover:text-yellow-400 transition" onclick="setRating(3, this)"></i>
+                        <i class="fas fa-star hover:text-yellow-400 transition" onclick="setRating(4, this)"></i>
+                        <i class="fas fa-star hover:text-yellow-400 transition" onclick="setRating(5, this)"></i>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Cerita Kesembuhan</label>
+                    <textarea rows="3" required class="w-full bg-gray-50 border border-gray-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-brand-primary focus:bg-white transition" placeholder="Ceritakan perubahan yang Anda rasakan..."></textarea>
+                </div>
+
+                <button type="submit" class="w-full bg-brand-primary text-white font-bold py-3.5 rounded-xl shadow-lg hover:bg-brand-dark transition mt-2 hover:-translate-y-1">
+                    Kirim Ulasan
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT -->
+    <script>
+        // Practice Schedule Config
+        const PRACTICE_LOCATIONS = {
+            A: {
+                name: 'Pusat Akupunktur Darma Bakti',
+                address: 'Alamat: Komplek Setiabudi Regency, Jl. Mustika Permata No. 9, Kel. Isola, Kec Sukasari, Ciwaruga, Kec. Parongpong, Kabupaten Bandung Barat, Jawa Barat 40559'
+            },
+            B: {
+                name: 'Yayasan Ikhtiar Sinshe & Akupunktur',
+                address: 'Jl. Peta No.169, Suka Asih, Kec. Bojongloa Kaler, Kota Bandung, Jawa Barat 40231'
+            }
+        };
+
+        const PRACTICE_SCHEDULE = {
+            0: { open: false, hours: [], location: null }, // Minggu
+            1: { open: true, hours: ['09:00-12:00'], location: 'A' }, // Senin
+            2: { open: true, hours: ['09:00-12:00'], location: 'A' }, // Selasa
+            3: { open: true, hours: ['14:30-19:00'], location: 'B' }, // Rabu
+            4: { open: true, hours: ['09:00-12:00'], location: 'A' }, // Kamis
+            5: { open: true, hours: ['09:00-12:00'], location: 'A' }, // Jumat
+            6: { open: true, hours: ['14:30-19:00'], location: 'B' }  // Sabtu
+        };
+
+        function minutesFromRange(range) {
+            const [start, end] = range.split('-');
+            const [sh, sm] = start.split(':').map(Number);
+            const [eh, em] = end.split(':').map(Number);
+            return { start: sh * 60 + sm, end: eh * 60 + em };
+        }
+
+        function isOpenNow(hours, minutesNow) {
+            return hours.some(range => {
+                const { start, end } = minutesFromRange(range);
+                return minutesNow >= start && minutesNow < end;
+            });
+        }
+
+        function formatHours(hours) {
+            return hours.length ? hours.map(r => r.replace('-', ' - ')).join(', ') : 'Libur';
+        }
+
+        function updatePracticeStatus() {
+            const now = new Date();
+            const day = now.getDay();
+            const minutesNow = now.getHours() * 60 + now.getMinutes();
+            const statusData = PRACTICE_SCHEDULE[day] || { open: false, hours: [], location: null };
+            const locationData = statusData.location ? PRACTICE_LOCATIONS[statusData.location] : null;
+            const hoursText = formatHours(statusData.hours || []);
+            const openNow = statusData.open && isOpenNow(statusData.hours || [], minutesNow);
+
+            const pill = document.getElementById('practice-indicator-pill');
+            const statusText = document.getElementById('practice-status-text');
+            const locationText = document.getElementById('practice-location-text');
+            const locationDetail = document.getElementById('practice-location-detail');
+            const todayHours = document.getElementById('practice-today-hours');
+
+            if (!pill || !statusText || !locationText || !todayHours) return;
+
+            pill.classList.remove('bg-gray-100','text-gray-600','bg-green-100','text-green-700','bg-red-100','text-red-700');
+            if (openNow) {
+                pill.classList.add('bg-green-100','text-green-700');
+                pill.innerHTML = '<span class="w-2 h-2 rounded-full bg-green-500"></span> Sedang Praktek';
+                statusText.textContent = `Sedang praktek di ${locationData ? locationData.name : 'lokasi'}`;
+            } else if (statusData.open) {
+                pill.classList.add('bg-red-100','text-red-700');
+                pill.innerHTML = '<span class="w-2 h-2 rounded-full bg-red-500"></span> Tutup';
+                statusText.textContent = `Hari ini praktek di ${locationData ? locationData.name : 'lokasi'}, buka ${hoursText}`;
+            } else {
+                pill.classList.add('bg-red-100','text-red-700');
+                pill.innerHTML = '<span class="w-2 h-2 rounded-full bg-red-500"></span> Libur';
+                statusText.textContent = 'Hari ini libur';
+            }
+
+            locationText.textContent = locationData ? locationData.name : 'Lokasi tidak tersedia';
+            if (locationDetail) {
+                locationDetail.textContent = locationData ? locationData.address : 'Alamat belum diatur';
+            }
+            todayHours.textContent = statusData.open ? `Jadwal hari ini: ${hoursText}` : 'Tidak ada jadwal hari ini';
+        }
+
+        function togglePracticeDetail() {
+            const detail = document.getElementById('practice-detail');
+            if (!detail) return;
+            detail.classList.toggle('hidden');
+        }
+
+        setInterval(updatePracticeStatus, 60000);
+        window.addEventListener('DOMContentLoaded', updatePracticeStatus);
+
+        // Scroll Effect for Navbar
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('bg-white/95', 'shadow-md');
+                navbar.classList.remove('bg-brand-light/90', 'border-b');
+            } else {
+                navbar.classList.remove('bg-white/95', 'shadow-md');
+                navbar.classList.add('bg-brand-light/90', 'border-b');
+            }
+        });
+
+        // Mobile Menu Logic
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            const icon = document.querySelector('#mobile-menu-btn i');
+            
+            if (menu.classList.contains('open')) {
+                menu.classList.remove('open');
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            } else {
+                menu.classList.add('open');
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            }
+        }
+
+        // Modal Logic (Appointment)
+        const APPOINTMENT_WA_NUMBER = '6281234567890';
+
+        function toggleModal() {
+            const modal = document.getElementById('appointmentModal');
+            if (!modal) return;
+            modal.classList.toggle('open');
+            document.body.classList.toggle('overflow-hidden', modal.classList.contains('open'));
+        }
+
+        function submitAppointment(e) {
+            e.preventDefault();
+            const form = e.target;
+            const nama = form.nama.value.trim();
+            const keluhan = form.keluhan.value.trim();
+            const whatsapp = form.whatsapp.value.trim();
+            const jadwal = form.jadwal.value;
+
+            const message = encodeURIComponent(
+                `Halo Sinshe, saya ${nama}.\nKeluhan: ${keluhan}.\nNomor WhatsApp: ${whatsapp}.\nJadwal yang diinginkan: ${jadwal}`
+            );
+            const url = `https://wa.me/${APPOINTMENT_WA_NUMBER}?text=${message}`;
+            window.open(url, '_blank');
+            form.reset();
+            toggleModal();
+        }
+
+        // Modal Logic (Review)
+        function openReviewModal() {
+            document.getElementById('reviewModal').classList.add('open');
+        }
+        function closeReviewModal() {
+            document.getElementById('reviewModal').classList.remove('open');
+        }
+
+        // Testimonial Submission Logic (Fake Backend)
+        function submitReview(e) {
+            e.preventDefault();
+            // Simulate Backend Validation Delay
+            const btn = e.target.querySelector('button');
+            const originalText = btn.innerText;
+            btn.innerText = 'Mengirim...';
+            btn.disabled = true;
+
+            setTimeout(() => {
+                // Success Alert
+                alert("Terima kasih! Ulasan Anda telah dikirim ke sistem kami dan sedang menunggu persetujuan moderator untuk ditampilkan.");
+                
+                // Reset Form
+                e.target.reset();
+                btn.innerText = originalText;
+                btn.disabled = false;
+                closeReviewModal();
+                
+                // Reset Stars
+                const stars = e.target.querySelectorAll('.fa-star');
+                stars.forEach(s => s.classList.remove('text-yellow-400'));
+            }, 1500);
+        }
+
+        function setRating(val, el) {
+            const parent = el.parentElement;
+            const stars = parent.querySelectorAll('i');
+            stars.forEach((star, index) => {
+                if(index < val) {
+                    star.classList.add('text-yellow-400');
+                } else {
+                    star.classList.remove('text-yellow-400');
+                }
+            });
+        }
+
+        // FAQ Logic
+        function toggleFaq(button) {
+            const content = button.nextElementSibling;
+            const icon = button.querySelector('.fa-chevron-down');
+            const item = button.parentElement;
+            
+            document.querySelectorAll('.faq-item').forEach(el => {
+                if(el !== item) {
+                    el.classList.remove('active');
+                    el.querySelector('.hidden').style.display = 'none';
+                    el.querySelector('.fa-chevron-down').style.transform = 'rotate(0deg)';
+                }
+            });
+
+            if (content.style.display === 'block') {
+                content.style.display = 'none';
+                icon.style.transform = 'rotate(0deg)';
+                item.classList.remove('active');
+            } else {
+                content.style.display = 'block';
+                icon.style.transform = 'rotate(180deg)';
+                item.classList.add('active');
+            }
+        }
+
+        // --- SLIDER LOGIC FOR TESTIMONIALS ---
+        let currentTesti = 0;
+        function updateTestiSlider() {
+            const wrapper = document.getElementById('testi-wrapper');
+            wrapper.style.transform = `translateX(-${currentTesti * 100}%)`;
+        }
+        function nextTestimoni() {
+            const total = document.querySelectorAll('#testi-wrapper .slide-item').length;
+            currentTesti = (currentTesti + 1) % total;
+            updateTestiSlider();
+        }
+        function prevTestimoni() {
+            const total = document.querySelectorAll('#testi-wrapper .slide-item').length;
+            currentTesti = (currentTesti - 1 + total) % total;
+            updateTestiSlider();
+        }
+        // Auto slide testimonials
+        setInterval(nextTestimoni, 6000);
+
+        // --- SLIDER LOGIC FOR METHODS ---
+        let currentMethod = 0;
+        function goToMethod(index) {
+            currentMethod = index;
+            const wrapper = document.getElementById('method-wrapper');
+            wrapper.style.transform = `translateX(-${currentMethod * 100}%)`;
+            
+            // Update active state of buttons
+            const btns = document.querySelectorAll('.method-nav-btn');
+            btns.forEach((btn, idx) => {
+                if(idx === index) {
+                    btn.classList.add('bg-white', 'shadow-sm', 'border-brand-primary');
+                    btn.classList.remove('bg-transparent', 'border-transparent', 'opacity-60');
+                } else {
+                    btn.classList.remove('bg-white', 'shadow-sm', 'border-brand-primary');
+                    btn.classList.add('bg-transparent', 'border-transparent', 'opacity-60');
+                }
+            });
+        }
+    </script>
+</body>
+</html>
