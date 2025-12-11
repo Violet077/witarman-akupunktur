@@ -798,78 +798,6 @@
                 <h3 class="font-serif font-bold text-xl relative z-10">Buat Janji</h3>
                 <button onclick="toggleModal()" class="hover:text-brand-secondary transition relative z-10"><i class="fas fa-times text-xl"></i></button>
             </div>
-            
-            
-<form class="p-6 space-y-4"
-      action="https://formsubmit.co/eginugraha504@gmail.com"
-      method="POST">
-
-    <!-- opsional: subject email -->
-    <input type="hidden" name="_subject" value="Testimoni baru dari sinshewitarman.com">
-    <!-- opsional: matikan captcha bawaan -->
-    <input type="hidden" name="_captcha" value="false">
-    <!-- opsional: redirect ke halaman terima kasih -->
-    <!-- <input type="hidden" name="_next" value="https://sinshewitarman.com/?thanks=1"> -->
-
-    <div>
-        <label class="block text-xs font-bold text-gray-500 uppercase mb-1">
-            Nama Lengkap
-        </label>
-        <input type="text"
-               name="nama"
-               required
-               class="w-full bg-gray-50 border border-gray-200 rounded-lg px-4 py-3 text-sm
-                      focus:outline-none focus:border-brand-primary focus:bg-white transition"
-               placeholder="Contoh: Budi Santoso">
-    </div>
-
-    <div>
-        <label class="block text-xs font-bold text-gray-500 uppercase mb-1">
-            Keluhan Yang Ditangani
-        </label>
-        <input type="text"
-               name="keluhan"
-               required
-               class="w-full bg-gray-50 border border-gray-200 rounded-lg px-4 py-3 text-sm
-                      focus:outline-none focus:border-brand-primary focus:bg-white transition"
-               placeholder="Contoh: Saraf Kejepit / Migrain">
-    </div>
-
-    <div>
-        <label class="block text-xs font-bold text-gray-500 uppercase mb-1">
-            Rating Pengalaman
-        </label>
-
-        <!-- tempat simpan angka rating -->
-        <input type="hidden" name="rating" id="review-rating" value="0">
-
-        <div class="flex gap-2 text-gray-300 text-2xl cursor-pointer">
-            <i class="fas fa-star hover:text-yellow-400 transition" onclick="setRating(1, this)"></i>
-            <i class="fas fa-star hover:text-yellow-400 transition" onclick="setRating(2, this)"></i>
-            <i class="fas fa-star hover:text-yellow-400 transition" onclick="setRating(3, this)"></i>
-            <i class="fas fa-star hover:text-yellow-400 transition" onclick="setRating(4, this)"></i>
-            <i class="fas fa-star hover:text-yellow-400 transition" onclick="setRating(5, this)"></i>
-        </div>
-    </div>
-
-    <div>
-        <label class="block text-xs font-bold text-gray-500 uppercase mb-1">
-            Cerita Kesembuhan
-        </label>
-        <textarea rows="3"
-                  name="cerita"
-                  required
-                  class="w-full bg-gray-50 border border-gray-200 rounded-lg px-4 py-3 text-sm
-                         focus:outline-none focus:border-brand-primary focus:bg-white transition"
-                  placeholder="Ceritakan perubahan yang Anda rasakan..."></textarea>
-    </div>
-
-    <button type="submit"
-            class="w-full bg-brand-primary text-white font-bold py-3.5 rounded-xl shadow-lg
-                   hover:bg-brand-dark transition mt-2 hover:-translate-y-1">
-        Kirim Ulasan
-    </button>
-</form>
         </div>
     </div>
 
@@ -888,37 +816,63 @@
                 <button onclick="closeReviewModal()" class="hover:text-brand-secondary transition relative z-10"><i class="fas fa-times text-xl"></i></button>
             </div>
             
-            <form class="p-6 space-y-4" onsubmit="submitReview(event)">
-                <div>
-                    <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Nama Lengkap</label>
-                    <input type="text" required class="w-full bg-gray-50 border border-gray-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-brand-primary focus:bg-white transition" placeholder="Contoh: Budi Santoso">
-                </div>
-                
-                <div>
-                    <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Keluhan Yang Ditangani</label>
-                    <input type="text" required class="w-full bg-gray-50 border border-gray-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-brand-primary focus:bg-white transition" placeholder="Contoh: Saraf Kejepit / Migrain">
-                </div>
+            <form class="p-6 space-y-4"
+			      action="https://formsubmit.co/eginugraha504@gmail.com"
+			      method="POST">
+			
+			    <!-- opsional: subject email -->
+			    <input type="hidden" name="_subject" value="Testimoni baru dari sinshewitarman.com">
+			    <!-- opsional: matikan captcha bawaan -->
+			    <input type="hidden" name="_captcha" value="false">
+			
+			    <div>
+			        <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Nama Lengkap</label>
+			        <input type="text"
+			               name="nama"
+			               required
+			               class="w-full bg-gray-50 border border-gray-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-brand-primary focus:bg-white transition"
+			               placeholder="Contoh: Budi Santoso">
+			    </div>
+			    
+			    <div>
+			        <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Keluhan Yang Ditangani</label>
+			        <input type="text"
+			               name="keluhan"
+			               required
+			               class="w-full bg-gray-50 border border-gray-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-brand-primary focus:bg-white transition"
+			               placeholder="Contoh: Saraf Kejepit / Migrain">
+			    </div>
+			
+			    <div>
+			        <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Rating Pengalaman</label>
+			
+			        <!-- simpan angka rating -->
+			        <input type="hidden" name="rating" id="review-rating" value="0">
+			
+			        <div class="flex gap-2 text-gray-300 text-2xl cursor-pointer">
+			            <i class="fas fa-star hover:text-yellow-400 transition" onclick="setRating(1, this)"></i>
+			            <i class="fas fa-star hover:text-yellow-400 transition" onclick="setRating(2, this)"></i>
+			            <i class="fas fa-star hover:text-yellow-400 transition" onclick="setRating(3, this)"></i>
+			            <i class="fas fa-star hover:text-yellow-400 transition" onclick="setRating(4, this)"></i>
+			            <i class="fas fa-star hover:text-yellow-400 transition" onclick="setRating(5, this)"></i>
+			        </div>
+			    </div>
+			
+			    <div>
+			        <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Cerita Kesembuhan</label>
+			        <textarea rows="3"
+			                  name="cerita"
+			                  required
+			                  class="w-full bg-gray-50 border border-gray-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-brand-primary focus:bg-white transition"
+			                  placeholder="Ceritakan perubahan yang Anda rasakan..."></textarea>
+			    </div>
+			
+			    <button type="submit"
+			            class="w-full bg-brand-primary text-white font-bold py-3.5 rounded-xl shadow-lg hover:bg-brand-dark transition mt-2 hover:-translate-y-1">
+			        Kirim Ulasan
+			    </button>
+			</form>
 
-                <div>
-                    <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Rating Pengalaman</label>
-                    <div class="flex gap-2 text-gray-300 text-2xl cursor-pointer">
-                        <i class="fas fa-star hover:text-yellow-400 transition" onclick="setRating(1, this)"></i>
-                        <i class="fas fa-star hover:text-yellow-400 transition" onclick="setRating(2, this)"></i>
-                        <i class="fas fa-star hover:text-yellow-400 transition" onclick="setRating(3, this)"></i>
-                        <i class="fas fa-star hover:text-yellow-400 transition" onclick="setRating(4, this)"></i>
-                        <i class="fas fa-star hover:text-yellow-400 transition" onclick="setRating(5, this)"></i>
-                    </div>
-                </div>
-
-                <div>
-                    <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Cerita Kesembuhan</label>
-                    <textarea rows="3" required class="w-full bg-gray-50 border border-gray-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-brand-primary focus:bg-white transition" placeholder="Ceritakan perubahan yang Anda rasakan..."></textarea>
-                </div>
-
-                <button type="submit" class="w-full bg-brand-primary text-white font-bold py-3.5 rounded-xl shadow-lg hover:bg-brand-dark transition mt-2 hover:-translate-y-1">
-                    Kirim Ulasan
-                </button>
-            </form>
         </div>
     </div>
 
@@ -1101,20 +1055,23 @@
         //}
 
         function setRating(val, el) {
-    const parent = el.parentElement;
-    const stars = parent.querySelectorAll('i');
-    stars.forEach((star, index) => {
-        if (index < val) {
-            star.classList.add('text-yellow-400');
-        } else {
-            star.classList.remove('text-yellow-400');
-        }
-    });
+		    const parent = el.parentElement;
+		    const stars = parent.querySelectorAll('i');
+		
+		    stars.forEach((star, index) => {
+		        if (index < val) {
+		            star.classList.add('text-yellow-400');
+		        } else {
+		            star.classList.remove('text-yellow-400');
+		        }
+		    });
+		
+		    const hiddenInput = document.getElementById('review-rating');
+		    if (hiddenInput) {
+		        hiddenInput.value = val;
+		    }
+		}
 
-    // simpan nilai ke input hidden
-    const hiddenInput = document.getElementById('review-rating');
-    if (hiddenInput) hiddenInput.value = val;
-}
 
 
         // FAQ Logic
@@ -1184,6 +1141,7 @@
 </body>
 
 </html>
+
 
 
 
