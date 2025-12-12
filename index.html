@@ -805,7 +805,51 @@
         <!-- Backdrop -->
         <div class="absolute inset-0 bg-brand-dark/80 backdrop-blur-sm" onclick="toggleModal()"></div>
         
-        <!-- Modal Content -->
+        <!--<form class="p-6 space-y-4"
+      action="https://api.web3forms.com/submit"
+      method="POST">
+
+    <!-- WAJIB: ganti dengan access_key dari Web3Forms -->
+    <input type="hidden" name="access_key" value="1faa2e55-3b5a-4976-8af8-b9acd9975be0">
+
+    <!-- OPSIONAL: redirect setelah sukses -->
+    <!-- <input type="hidden" name="redirect" value="https://sinshewitarman.com/?thanks=1"> -->
+
+    <!-- Field anti-bot yang disarankan Web3Forms -->
+    <input type="checkbox" name="botcheck" class="hidden" style="display:none;">
+
+    <div>
+        <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Nama Lengkap</label>
+        <input type="text" name="nama" required class="w-full bg-gray-50 border border-gray-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-brand-primary focus:bg-white transition" placeholder="Contoh: Budi Santoso">
+    </div>
+
+    <div>
+        <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Keluhan Yang Ditangani</label>
+        <input type="text" name="keluhan" required class="w-full bg-gray-50 border border-gray-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-brand-primary focus:bg-white transition" placeholder="Contoh: Saraf Kejepit / Migrain">
+    </div>
+
+    <div>
+        <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Rating Pengalaman</label>
+        <input type="hidden" name="rating" id="review-rating" value="0">
+        <div class="flex gap-2 text-gray-300 text-2xl cursor-pointer">
+            <i class="fas fa-star hover:text-yellow-400 transition" onclick="setRating(1, this)"></i>
+            <i class="fas fa-star hover:text-yellow-400 transition" onclick="setRating(2, this)"></i>
+            <i class="fas fa-star hover:text-yellow-400 transition" onclick="setRating(3, this)"></i>
+            <i class="fas fa-star hover:text-yellow-400 transition" onclick="setRating(4, this)"></i>
+            <i class="fas fa-star hover:text-yellow-400 transition" onclick="setRating(5, this)"></i>
+        </div>
+    </div>
+
+    <div>
+        <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Cerita Kesembuhan</label>
+        <textarea rows="4" name="cerita" required class="w-full bg-gray-50 border border-gray-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-brand-primary focus:bg-white transition" placeholder="Ceritakan perubahan yang Anda rasakan..."></textarea>
+    </div>
+
+    <button type="submit" class="w-full bg-brand-primary text-white font-bold py-3.5 rounded-xl shadow-lg hover:bg-brand-dark transition mt-2 hover:-translate-y-1">
+        Kirim Ulasan
+    </button>
+	</form>
+		Modal Content -->
         <div class="modal-content bg-white w-full max-w-md rounded-2xl shadow-2xl relative z-10 overflow-hidden">
             <div class="bg-brand-primary p-6 text-white flex justify-between items-center relative overflow-hidden">
                 <div class="absolute -right-4 -top-4 w-20 h-20 bg-white/10 rounded-full blur-xl"></div>
@@ -830,62 +874,7 @@
                 <button onclick="closeReviewModal()" class="hover:text-brand-secondary transition relative z-10"><i class="fas fa-times text-xl"></i></button>
             </div>
             
-            <form class="p-6 space-y-4"
-			      action="https://formsubmit.co/eginugraha504@gmail.com"
-			      method="POST">
-			
-			    <!-- opsional: subject email -->
-			    <input type="hidden" name="_subject" value="Testimoni baru dari sinshewitarman.com">
-			    <!-- opsional: matikan captcha bawaan -->
-			   <!-- <input type="hidden" name="_captcha" value="false"> -->
-			
-			    <div>
-			        <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Nama Lengkap</label>
-			        <input type="text"
-			               name="nama"
-			               required
-			               class="w-full bg-gray-50 border border-gray-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-brand-primary focus:bg-white transition"
-			               placeholder="Contoh: Budi Santoso">
-			    </div>
-			    
-			    <div>
-			        <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Keluhan Yang Ditangani</label>
-			        <input type="text"
-			               name="keluhan"
-			               required
-			               class="w-full bg-gray-50 border border-gray-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-brand-primary focus:bg-white transition"
-			               placeholder="Contoh: Saraf Kejepit / Migrain">
-			    </div>
-			
-			    <div>
-			        <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Rating Pengalaman</label>
-			
-			        <!-- simpan angka rating -->
-			        <input type="hidden" name="rating" id="review-rating" value="0">
-			
-			        <div class="flex gap-2 text-gray-300 text-2xl cursor-pointer">
-			            <i class="fas fa-star hover:text-yellow-400 transition" onclick="setRating(1, this)"></i>
-			            <i class="fas fa-star hover:text-yellow-400 transition" onclick="setRating(2, this)"></i>
-			            <i class="fas fa-star hover:text-yellow-400 transition" onclick="setRating(3, this)"></i>
-			            <i class="fas fa-star hover:text-yellow-400 transition" onclick="setRating(4, this)"></i>
-			            <i class="fas fa-star hover:text-yellow-400 transition" onclick="setRating(5, this)"></i>
-			        </div>
-			    </div>
-			
-			    <div>
-			        <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Cerita Kesembuhan</label>
-			        <textarea rows="3"
-			                  name="cerita"
-			                  required
-			                  class="w-full bg-gray-50 border border-gray-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-brand-primary focus:bg-white transition"
-			                  placeholder="Ceritakan perubahan yang Anda rasakan..."></textarea>
-			    </div>
-			
-			    <button type="submit"
-			            class="w-full bg-brand-primary text-white font-bold py-3.5 rounded-xl shadow-lg hover:bg-brand-dark transition mt-2 hover:-translate-y-1">
-			        Kirim Ulasan
-			    </button>
-			</form>
+            
 
         </div>
     </div>
@@ -1155,6 +1144,7 @@
 </body>
 
 </html>
+
 
 
 
