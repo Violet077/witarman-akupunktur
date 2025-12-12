@@ -197,6 +197,32 @@
 
     <!-- HERO SECTION (Profil) -->
     <header class="relative pt-24 pb-16 lg:pt-32 lg:pb-24 overflow-hidden">
+    
+    <!-- PENGUMUMAN SEMENTARA -->
+    <div id="maintenance-banner"
+         class="mb-6 mx-auto max-w-5xl px-4">
+        <div class="rounded-xl bg-amber-50 border border-amber-200 text-amber-900 text-xs md:text-sm px-4 py-3 shadow-sm flex items-start gap-3">
+            <div class="mt-0.5 text-base md:text-lg">⚠️</div>
+            <div class="flex-1">
+                <p class="font-semibold mb-0.5">Pengumuman</p>
+                <p>
+                    Saat ini website sedang dalam proses pembaruan, khususnya pada fitur
+                    testimoni/ulasan pasien. Jika Anda mengalami kendala saat mengirimkan testimoni,
+                    silakan hubungi kami melalui WhatsApp atau kontak yang tertera di halaman ini.
+                    Terima kasih atas pengertiannya.
+                </p>
+            </div>
+            <button type="button"
+                    class="ml-2 text-amber-700/70 hover:text-amber-900 text-lg leading-none"
+                    aria-label="Tutup pengumuman"
+                    onclick="document.getElementById('maintenance-banner').classList.add('hidden')">
+                &times;
+            </button>
+        </div>
+    </div>
+    <!-- END PENGUMUMAN -->
+    
+    <!-- sisa konten HERO kamu lanjut di sini -->
         <div class="container mx-auto px-6 md:px-12 mb-8">
             <div class="bg-white border border-gray-100 rounded-2xl shadow-md px-5 py-4 flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
                 <div class="flex flex-col gap-2">
@@ -1143,6 +1169,7 @@
 </body>
 
 </html>
+
 
 
 
