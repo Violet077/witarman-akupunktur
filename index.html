@@ -199,7 +199,7 @@
     <header class="relative pt-24 pb-16 lg:pt-32 lg:pb-24 overflow-hidden">
     
     <!-- PENGUMUMAN SEMENTARA -->
-    <div id="maintenance-banner"
+    <!--<div id="maintenance-banner"
          class="mb-6 mx-auto max-w-5xl px-4">
         <div class="rounded-xl bg-amber-50 border border-amber-200 text-amber-900 text-xs md:text-sm px-4 py-3 shadow-sm flex items-start gap-3">
             <div class="mt-0.5 text-base md:text-lg">⚠️</div>
@@ -830,67 +830,51 @@
     <div id="appointmentModal" class="modal fixed inset-0 z-[60] flex items-center justify-center px-4">
         <!-- Backdrop -->
         <div class="absolute inset-0 bg-brand-dark/80 backdrop-blur-sm" onclick="toggleModal()"></div>
-        
-        <!--<form class="p-6 space-y-4"
-      action="https://api.web3forms.com/submit"
-      method="POST">
 
-    <!-- WAJIB: ganti dengan access_key dari Web3Forms -->
-    <input type="hidden" name="access_key" value="1faa2e55-3b5a-4976-8af8-b9acd9975be0">
-
-    <!-- OPSIONAL: redirect setelah sukses -->
-    <!-- <input type="hidden" name="redirect" value="https://sinshewitarman.com/?thanks=1"> -->
-
-    <!-- Field anti-bot yang disarankan Web3Forms -->
-    <input type="checkbox" name="botcheck" class="hidden" style="display:none;">
-
-    <div>
-        <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Nama Lengkap</label>
-        <input type="text" name="nama" required class="w-full bg-gray-50 border border-gray-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-brand-primary focus:bg-white transition" placeholder="Contoh: Budi Santoso">
-    </div>
-
-    <div>
-        <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Keluhan Yang Ditangani</label>
-        <input type="text" name="keluhan" required class="w-full bg-gray-50 border border-gray-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-brand-primary focus:bg-white transition" placeholder="Contoh: Saraf Kejepit / Migrain">
-    </div>
-
-    <div>
-        <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Rating Pengalaman</label>
-        <input type="hidden" name="rating" id="review-rating" value="0">
-        <div class="flex gap-2 text-gray-300 text-2xl cursor-pointer">
-            <i class="fas fa-star hover:text-yellow-400 transition" onclick="setRating(1, this)"></i>
-            <i class="fas fa-star hover:text-yellow-400 transition" onclick="setRating(2, this)"></i>
-            <i class="fas fa-star hover:text-yellow-400 transition" onclick="setRating(3, this)"></i>
-            <i class="fas fa-star hover:text-yellow-400 transition" onclick="setRating(4, this)"></i>
-            <i class="fas fa-star hover:text-yellow-400 transition" onclick="setRating(5, this)"></i>
-        </div>
-    </div>
-
-    <div>
-        <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Cerita Kesembuhan</label>
-        <textarea rows="4" name="cerita" required class="w-full bg-gray-50 border border-gray-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-brand-primary focus:bg-white transition" placeholder="Ceritakan perubahan yang Anda rasakan..."></textarea>
-    </div>
-
-    <button type="submit" class="w-full bg-brand-primary text-white font-bold py-3.5 rounded-xl shadow-lg hover:bg-brand-dark transition mt-2 hover:-translate-y-1">
-        Kirim Ulasan
-    </button>
-	</form>
-		Modal Content -->
         <div class="modal-content bg-white w-full max-w-md rounded-2xl shadow-2xl relative z-10 overflow-hidden">
             <div class="bg-brand-primary p-6 text-white flex justify-between items-center relative overflow-hidden">
                 <div class="absolute -right-4 -top-4 w-20 h-20 bg-white/10 rounded-full blur-xl"></div>
                 <h3 class="font-serif font-bold text-xl relative z-10">Buat Janji</h3>
                 <button onclick="toggleModal()" class="hover:text-brand-secondary transition relative z-10"><i class="fas fa-times text-xl"></i></button>
             </div>
+
+            <form class="p-6 space-y-4" onsubmit="submitAppointment(event)">
+                <p class="text-sm text-gray-600">Isi formulir di bawah ini dan kami akan menyiapkan pesan WhatsApp otomatis untuk Anda.</p>
+
+                <div>
+                    <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Nama Lengkap</label>
+                    <input type="text" name="nama" required class="w-full bg-gray-50 border border-gray-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-brand-primary focus:bg-white transition" placeholder="Contoh: Budi Santoso">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Keluhan Yang Ditangani</label>
+                    <textarea name="keluhan" rows="2" required class="w-full bg-gray-50 border border-gray-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-brand-primary focus:bg-white transition" placeholder="Contoh: Saraf Kejepit / Migrain"></textarea>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Nomor WhatsApp</label>
+                    <input type="tel" name="whatsapp" required class="w-full bg-gray-50 border border-gray-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-brand-primary focus:bg-white transition" placeholder="Contoh: 0812xxxxxxx">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Preferensi Jadwal</label>
+                    <input type="text" name="jadwal" required class="w-full bg-gray-50 border border-gray-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-brand-primary focus:bg-white transition" placeholder="Contoh: Kamis pukul 10.00 di Darma Bakti">
+                </div>
+
+                <button type="submit" class="w-full bg-brand-primary text-white font-bold py-3.5 rounded-xl shadow-lg hover:bg-brand-dark transition mt-2 hover:-translate-y-1">
+                    Kirim ke WhatsApp
+                </button>
+                <p class="text-[11px] text-gray-500 text-center">Pesan WhatsApp akan terbuka di tab baru tanpa menyimpan data di server.</p>
+            </form>
         </div>
     </div>
 
     <div id="reviewModal" class="modal fixed inset-0 z-[60] flex items-start justify-center px-4 py-8">
-    <!-- Backdrop -->
-    <div class="absolute inset-0 bg-brand-dark/80 backdrop-blur-sm" onclick="closeReviewModal()"></div>
-    
-    <!-- Modal Content -->
-    <div class="modal-content bg-white w-full max-w-md max-h-[90vh] rounded-2xl shadow-2xl relative z-10 overflow-y-auto">
+        <!-- Backdrop -->
+        <div class="absolute inset-0 bg-brand-dark/80 backdrop-blur-sm" onclick="closeReviewModal()"></div>
+        
+        <!-- Modal Content -->
+        <div class="modal-content bg-white w-full max-w-md max-h-[90vh] rounded-2xl shadow-2xl relative z-10 overflow-y-auto">
             <div class="bg-brand-primary p-6 text-white flex justify-between items-center relative overflow-hidden">
                 <!-- Decor -->
                 <div class="absolute -right-4 -top-4 w-20 h-20 bg-white/10 rounded-full blur-xl"></div>
@@ -898,9 +882,53 @@
                 <h3 class="font-serif font-bold text-xl relative z-10">Tulis Testimoni</h3>
                 <button onclick="closeReviewModal()" class="hover:text-brand-secondary transition relative z-10"><i class="fas fa-times text-xl"></i></button>
             </div>
-            
-            
 
+            <form id="review-form" class="p-6 space-y-4" action="https://api.web3forms.com/submit" method="POST" onsubmit="submitReview(event)">
+                <p class="text-sm text-gray-600">Bagikan ulasan Anda untuk membantu pasien lain. Tim kami akan memoderasi sebelum tayang.</p>
+
+                <input type="hidden" name="access_key" value="1faa2e55-3b5a-4976-8af8-b9acd9975be0">
+                <input type="hidden" name="subject" value="Ulasan Pasien Sinshe Witarman">
+                <input type="checkbox" name="botcheck" class="hidden" tabindex="-1" autocomplete="off">
+
+                <div>
+                    <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Nama Lengkap</label>
+                    <input type="text" name="nama" required class="w-full bg-gray-50 border border-gray-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-brand-primary focus:bg-white transition" placeholder="Contoh: Budi Santoso">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Kontak (Email/WA) <span class="text-[11px] font-normal text-gray-400">(opsional)</span></label>
+                    <input type="text" name="kontak" class="w-full bg-gray-50 border border-gray-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-brand-primary focus:bg-white transition" placeholder="Boleh dikosongkan jika tidak ingin ditampilkan">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Keluhan Yang Ditangani</label>
+                    <input type="text" name="keluhan" required class="w-full bg-gray-50 border border-gray-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-brand-primary focus:bg-white transition" placeholder="Contoh: Saraf Kejepit / Migrain">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Rating Pengalaman</label>
+                    <input type="hidden" name="rating" id="review-rating" value="0">
+                    <div class="rating-stars flex gap-2 text-2xl cursor-pointer text-gray-300">
+                        <i class="fas fa-star rating-star transition" onclick="setRating(1, this)"></i>
+                        <i class="fas fa-star rating-star transition" onclick="setRating(2, this)"></i>
+                        <i class="fas fa-star rating-star transition" onclick="setRating(3, this)"></i>
+                        <i class="fas fa-star rating-star transition" onclick="setRating(4, this)"></i>
+                        <i class="fas fa-star rating-star transition" onclick="setRating(5, this)"></i>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Cerita Kesembuhan</label>
+                    <textarea rows="4" name="cerita" required class="w-full bg-gray-50 border border-gray-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-brand-primary focus:bg-white transition" placeholder="Ceritakan perubahan yang Anda rasakan..."></textarea>
+                </div>
+
+                <div id="review-alert" class="hidden text-sm"></div>
+
+                <button type="submit" class="w-full bg-brand-primary text-white font-bold py-3.5 rounded-xl shadow-lg hover:bg-brand-dark transition mt-2 hover:-translate-y-1">
+                    Bagikan Ulasan Anda
+                </button>
+                <p class="text-[11px] text-gray-500 text-center">Form dikirim melalui Web3Forms secara aman.</p>
+            </form>
         </div>
     </div>
 
@@ -1038,7 +1066,7 @@
             const nama = form.nama.value.trim();
             const keluhan = form.keluhan.value.trim();
             const whatsapp = form.whatsapp.value.trim();
-            const jadwal = form.jadwal.value;
+            const jadwal = form.jadwal.value.trim();
 
             const message = encodeURIComponent(
                 `Halo Sinshe, saya ${nama}.\nKeluhan: ${keluhan}.\nNomor WhatsApp: ${whatsapp}.\nJadwal yang diinginkan: ${jadwal}`
@@ -1051,54 +1079,102 @@
 
         // Modal Logic (Review)
         function openReviewModal() {
-            document.getElementById('reviewModal').classList.add('open');
+            const modal = document.getElementById('reviewModal');
+            if (!modal) return;
+            modal.classList.add('open');
+            document.body.classList.add('overflow-hidden');
         }
         function closeReviewModal() {
-            document.getElementById('reviewModal').classList.remove('open');
+            const modal = document.getElementById('reviewModal');
+            if (!modal) return;
+            modal.classList.remove('open');
+            document.body.classList.remove('overflow-hidden');
+
+            const alertBox = document.getElementById('review-alert');
+            if (alertBox) {
+                alertBox.className = 'hidden';
+                alertBox.textContent = '';
+            }
         }
 
-        // Testimonial Submission Logic (Fake Backend)
-        //function submitReview(e) {
-           // e.preventDefault();
-            // Simulate Backend Validation Delay
-            //const btn = e.target.querySelector('button');
-            //const originalText = btn.innerText;
-            //btn.innerText = 'Mengirim...';
-            //btn.disabled = true;
+        // Testimonial Submission Logic (Web3Forms)
+        function submitReview(e) {
+            e.preventDefault();
+            const form = e.target;
+            const alertBox = document.getElementById('review-alert');
+            const submitBtn = form.querySelector('button[type="submit"]');
+            const ratingInput = form.querySelector('#review-rating');
+            const ratingValue = parseInt((ratingInput ? ratingInput.value : '0') || '0', 10);
 
-            //setTimeout(() => {
-                // Success Alert
-                //alert("Terima kasih! Ulasan Anda telah dikirim ke sistem kami dan sedang menunggu persetujuan moderator untuk ditampilkan.");
-                
-                // Reset Form
-                //e.target.reset();
-                //btn.innerText = originalText;
-                //btn.disabled = false;
-                //closeReviewModal();
-                
-                // Reset Stars
-                //const stars = e.target.querySelectorAll('.fa-star');
-                //stars.forEach(s => s.classList.remove('text-yellow-400'));
-            //}, 1500);
-        //}
+            if (alertBox) {
+                alertBox.className = 'hidden';
+                alertBox.textContent = '';
+            }
+
+            const showAlert = (message, type = 'success') => {
+                if (!alertBox) return;
+                const baseClass = 'block px-3 py-2 rounded-lg text-sm border ';
+                alertBox.className = baseClass + (type === 'error'
+                    ? 'bg-red-50 text-red-700 border-red-200'
+                    : 'bg-green-50 text-green-700 border-green-200');
+                alertBox.textContent = message;
+            };
+
+            if (ratingValue <= 0) {
+                showAlert('Silakan pilih rating Anda sebelum mengirim.', 'error');
+                return;
+            }
+
+            const originalText = submitBtn ? submitBtn.innerText : '';
+            if (submitBtn) {
+                submitBtn.disabled = true;
+                submitBtn.innerText = 'Mengirim...';
+            }
+
+            const formData = new FormData(form);
+
+            fetch(form.action, {
+                method: 'POST',
+                body: formData
+            })
+            .then(async response => {
+                const data = await response.json().catch(() => ({}));
+                if (!response.ok) {
+                    throw new Error(data.message || 'Gagal mengirim formulir. Coba lagi.');
+                }
+                showAlert('Terima kasih! Ulasan Anda sudah kami terima.', 'success');
+                form.reset();
+                setRating(0);
+            })
+            .catch(error => {
+                showAlert(error.message || 'Terjadi kesalahan, coba lagi nanti.', 'error');
+            })
+            .finally(() => {
+                if (submitBtn) {
+                    submitBtn.disabled = false;
+                    submitBtn.innerText = originalText || 'Bagikan Ulasan Anda';
+                }
+            });
+        }
 
         function setRating(val, el) {
-		    const parent = el.parentElement;
-		    const stars = parent.querySelectorAll('i');
-		
-		    stars.forEach((star, index) => {
-		        if (index < val) {
-		            star.classList.add('text-yellow-400');
-		        } else {
-		            star.classList.remove('text-yellow-400');
-		        }
-		    });
-		
-		    const hiddenInput = document.getElementById('review-rating');
-		    if (hiddenInput) {
-		        hiddenInput.value = val;
-		    }
-		}
+            const container = el ? el.closest('.rating-stars') : document.querySelector('.rating-stars');
+            if (!container) return;
+            const stars = container.querySelectorAll('.rating-star');
+
+            stars.forEach((star, index) => {
+                if (index < val) {
+                    star.classList.add('text-yellow-400');
+                } else {
+                    star.classList.remove('text-yellow-400');
+                }
+            });
+
+            const hiddenInput = document.getElementById('review-rating');
+            if (hiddenInput) {
+                hiddenInput.value = val;
+            }
+        }
 
 
 
@@ -1169,9 +1245,6 @@
 </body>
 
 </html>
-
-
-
 
 
 
