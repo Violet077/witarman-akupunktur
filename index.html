@@ -49,6 +49,73 @@
     </script>
     <style>
         /* --- GLOBAL RESET & OVERFLOW FIX --- */
+		/* --- PRELOADER (LOADING SCREEN) --- */
+        #preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #f8fafc; /* Slate-50 (Sama kayak background body) */
+            z-index: 9999; /* Paling atas menutupi semuanya */
+            display: flex;
+            flex-col: column;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.8s ease-out, visibility 0.8s ease-out;
+        }
+
+        #preloader.loaded {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        /* Animasi Denyut (Pulse) ala Zen/Medis */
+        .pulse-loader {
+            width: 60px;
+            height: 60px;
+            background-color: #059669; /* Emerald-600 */
+            border-radius: 50%;
+            position: relative;
+            animation: pulse-ring 2s infinite cubic-bezier(0.215, 0.61, 0.355, 1);
+        }
+        
+        .pulse-loader::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background-color: #059669;
+            border-radius: 50%;
+            animation: pulse-dot 2s infinite cubic-bezier(0.455, 0.03, 0.515, 0.955);
+        }
+
+        @keyframes pulse-ring {
+            0% { transform: scale(0.8); box-shadow: 0 0 0 0 rgba(5, 150, 105, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 30px rgba(5, 150, 105, 0); }
+            100% { transform: scale(0.8); box-shadow: 0 0 0 0 rgba(5, 150, 105, 0); }
+        }
+
+        @keyframes pulse-dot {
+            0% { transform: scale(0.8); }
+            50% { transform: scale(0.6); }
+            100% { transform: scale(0.8); }
+        }
+
+        .loading-text {
+            margin-top: 20px;
+            font-family: 'Playfair Display', serif;
+            font-weight: bold;
+            color: #0f172a;
+            letter-spacing: 0.1em;
+            animation: fadeText 2s infinite;
+        }
+
+        @keyframes fadeText {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
         html { 
             scroll-behavior: smooth; 
             overflow-x: hidden; /* Mencegah scroll horizontal */
@@ -215,6 +282,10 @@
     </script>
 </head>
 <body class="bg-slate-50 text-slate-900 leading-relaxed overflow-x-hidden">
+	<div id="preloader">
+        <div class="pulse-loader"></div>
+        <div class="loading-text">SINSHE WITARMAN</div>
+    </div>
 
     <!-- Maintenance Banner -->
     <!-- <div id="maintenance-banner" class="bg-amber-50 border-b border-amber-200 text-amber-900 text-xs md:text-sm px-4 py-3 shadow-sm">
@@ -1017,8 +1088,43 @@
                 }
             }
         }
+        // GANTI BLOK window.addEventListener YANG LAMA DENGAN INI:
+        
+        window.addEventListener('load', () => {
+            // 1. Inisialisasi fungsi-fungsi dasar dulu (tapi belum tampil)
+            updatePracticeStatus();
+            initTestiSlider();
+            goToMethod(0);
+            initChristmasMode();
+            
+            // Logic Scroll Navbar
+            const navbar = document.getElementById('navbar');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    navbar.classList.add('is-scrolled');
+                } else {
+                    navbar.classList.remove('is-scrolled');
+                }
+            });
+
+            // 2. Hilangkan Loading Screen
+            const preloader = document.getElementById('preloader');
+            
+            // Sedikit delay (500ms) biar loadingnya ga kedip kecepetan (biar kerasa smooth)
+            setTimeout(() => {
+                preloader.classList.add('loaded');
+                
+                // 3. BARU JALANKAN ANIMASI MUNCUL (REVEAL) SETELAH LOADING HILANG
+                // Supaya animasinya jalan pas user sudah lihat, bukan jalan di belakang layar loading
+                setTimeout(() => {
+                    reveal(); // Panggil fungsi reveal pertama kali disini
+                }, 400); // Tunggu loading screen mulai memudar
+                
+            }, 500);
+        });
+
+        // Tetap pasang listener scroll untuk animasi reveal selanjutnya
         window.addEventListener('scroll', reveal);
-        reveal();
 
         const PRACTICE_LOCATIONS = {
             A: {
@@ -1330,4 +1436,5 @@
 
 </body>
 </html>
+
 
