@@ -1152,11 +1152,11 @@
         const PRACTICE_SCHEDULE = {
             0: { open: false, hours: [], location: null },
             1: { open: true, hours: ['09:00-12:00'], location: 'A' },
-            2: { open: true, hours:  [], location: null },
-            3: { open: true, hours:  [], location: null },
-            4: { open: false, hours: [], location: null },
-            5: { open: true, hours:  [], location: null },
-            6: { open: true, hours:  [], location: null },
+            2: { open: true, hours: ['09:00-12:00'], location: 'A' },
+            3: { open: true, hours: ['15:00-19:00'], location: 'B' },
+            4: { open: true, hours: ['09:00-12:00'], location: 'A' },
+            5: { open: true, hours: ['09:00-12:00'], location: 'A' },
+            6: { open: true, hours: ['15:00-19:00'], location: 'B' },
         };
         function minutesFromRange(range) {
             const [start, end] = range.split('-');
@@ -1449,6 +1449,7 @@
 
 </body>
 </html>
+
 
 
 
