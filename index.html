@@ -59,7 +59,7 @@
             background-color: #f8fafc; /* Slate-50 (Sama kayak background body) */
             z-index: 9999; /* Paling atas menutupi semuanya */
             display: flex;
-            flex-col: column;
+            flex: column;
             justify-content: center;
             align-items: center;
             transition: opacity 0.8s ease-out, visibility 0.8s ease-out;
@@ -415,7 +415,7 @@
 
                     <div class="space-y-2 md:space-y-4 text-xs md:text-sm text-emerald-50/90 leading-relaxed">
                         <p class="flex gap-2 md:gap-3 items-start"><i class="fas fa-check-circle text-emerald-400 mt-0.5 md:mt-1 flex-shrink-0"></i> <span>Praktik bersama Prof. Sim Kie Jie sejak tahun 2001.</span></p>
-                        <p class="flex gap-2 md:gap-3 items-start"><i class="fas fa-check-circle text-emerald-400 mt-0.5 md:mt-1 flex-shrink-0"></i> <span>Lulusan Poltekkes & IIK Bhakti Wiyata.</span></p>
+                        <p class="flex gap-2 md:gap-3 items-start"><i class="fas fa-check-circle text-emerald-400 mt-0.5 md:mt-1 flex-shrink-0"></i> <span>Lulusan Poltekkes Surakarta & IIK Bhakti Wiyata.</span></p>
                         <p class="flex gap-2 md:gap-3 items-start"><i class="fas fa-check-circle text-emerald-400 mt-0.5 md:mt-1 flex-shrink-0"></i> <span>Pelatihan di ChengDu & ChangSha.</span></p>
                     </div>
                 </div>
@@ -810,6 +810,24 @@
                         "Sebelumnya saya mengalami Frozen Shoulder, setelah beberapa kali diakupuntur oleh shinshe Witarman perlahan penyakit saya sembuh."
                     </p>
                 </article>
+
+                <article class="bg-white text-slate-800 rounded-2xl shadow-2xl p-6 flex flex-col gap-4 h-full">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-emerald-100 text-emerald-700 rounded-full flex items-center justify-center font-bold">T</div>
+                        <div>
+                            <p class="font-bold text-slate-900">Tomi</p>
+                            <p class="text-xs text-slate-500">Pasien Nyeri Pinggang</p>
+                        </div>
+                    </div>
+                    <p class="text-slate-700 text-sm leading-relaxed">
+                        "Saya pernah mengalami nyeri luar biasa di area pinggang hingga kaki kanan, yang mengakibatkan saya tidak dapat beraktivitas seperti biasa.
+                        Saya pun berobat ke dokter spesialis rehabilitas medis, menjalani terapi dan mengonssumsi berbagai obat pereda nyeri dengan dosis tinggi. Namun, kondisi saya belum juga membaik.
+                        <br><br>
+                        Akhirnya, atas rekomendasi kerabat saya mencoba akupunktur dengan Sinshe Witarman. Hanya dalam satu kali terapi, nyeri saya langsung berkurang.
+                        Saya kemudian mengikuti anjuran beliau untuk menyelesaikan 12 sesi terapi. Sekarang, saya telah pulih sepenuhnya dan bahkan bisa jogging kembali dengan nyaman.
+                        Terima kasih, Sinshe Witarman."
+                    </p>
+                </article>
             </div>
 
             <div class="mt-10 text-center reveal delay-150">
@@ -1024,7 +1042,7 @@
                     <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Keluhan Yang Ditangani</label>
                     <input type="text" name="keluhan" required class="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-emerald-500 focus:bg-white transition" placeholder="Contoh: Saraf Kejepit / Migrain">
                 </div>
-                <div>
+                <!--<div>
                     <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Rating Pengalaman</label>
                     <input type="hidden" name="rating" id="review-rating" value="0">
                     <div class="rating-stars flex gap-2 text-2xl cursor-pointer text-slate-300">
@@ -1034,7 +1052,7 @@
                         <i class="fas fa-star rating-star transition" onclick="setRating(4, this)"></i>
                         <i class="fas fa-star rating-star transition" onclick="setRating(5, this)"></i>
                     </div>
-                </div>
+                </div> -->
                 <div>
                     <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Cerita Kesembuhan</label>
                     <textarea rows="4" name="cerita" required class="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-emerald-500 focus:bg-white transition" placeholder="Ceritakan perubahan yang Anda rasakan..."></textarea>
@@ -1078,7 +1096,7 @@
                 if (button) button.setAttribute('aria-expanded', 'true');
             } else {
                 menu.classList.add('translate-x-full');
-                menu.classList.remove('translate-x-0');
+                menu.classList.remove('translate-x-0'); 
                 overlay.classList.add('opacity-0', 'pointer-events-none');
                 overlay.classList.remove('opacity-100', 'pointer-events-auto');
                 menu.setAttribute('aria-hidden', 'true');
